@@ -1,0 +1,101 @@
+{
+  "pages" : [
+    {
+      "path" : "pages/tabbar/index",
+      "style" : {
+        "navigationBarTitleText" : "首页",
+        "enablePullDownRefresh" : false,
+        "navigationBarTextStyle" : "white",
+        "navigationStyle" : "custom"
+      }
+    },
+    {
+      "path" : "pages/tabbar/my",
+      "style" : {
+        "navigationBarTitleText" : "我的",
+        "enablePullDownRefresh" : false,
+        "navigationBarTextStyle" : "white",
+        "navigationStyle" : "custom"
+      }
+    },
+    {
+      "path" : "pages/index/manage",
+      "style" : {
+        "navigationBarTitleText" : "经营场所录入",
+        "enablePullDownRefresh" : false,
+        "navigationBarTextStyle" : "white",
+        "navigationStyle" : "custom"
+      }
+    },
+    {
+      "path" : "pages/index/environment",
+      "style" : {
+        "navigationBarTitleText" : "环境监测录入",
+        "enablePullDownRefresh" : false,
+        "navigationBarTextStyle" : "white",
+        "navigationStyle" : "custom"
+      }
+    },
+    {
+      "path" : "pages/index/employee",
+      "style" : {
+        "navigationBarTitleText" : "从业人员录入",
+        "enablePullDownRefresh" : false,
+        "navigationBarTextStyle" : "white",
+        "navigationStyle" : "custom"
+      }
+    },
+    {
+      "path" : "pages/my/help",
+      "style" : {
+        "navigationBarTitleText" : "帮助中心",
+        "enablePullDownRefresh" : false,
+        "navigationBarTextStyle" : "white",
+        "navigationStyle" : "custom"
+      }
+    },
+    {
+      "path" : "pages/my/myRegister",
+      "style" : {
+        "navigationBarTitleText" : "我的登记",
+        "enablePullDownRefresh" : false,
+        "navigationBarTextStyle" : "white",
+        "navigationStyle" : "custom"
+      }
+    },
+    {
+      "path" : "pages/my/login",
+      "style" : {
+        "navigationBarTitleText" : "账号登录",
+        "enablePullDownRefresh" : false,
+        "navigationBarTextStyle" : "white",
+        "navigationStyle" : "custom"
+      }
+    }
+  ],
+  "globalStyle" : {
+    "navigationBarTextStyle" : "black",
+    "navigationBarTitleText" : "uni-app",
+    "navigationBarBackgroundColor" : "#F8F8F8",
+    "backgroundColor" : "#F8F8F8"
+  },
+  "tabBar" : {
+    "color" : "#666",
+    "selectedColor" : "#15B8F2",
+    "backgroundColor" : "#fff",
+    "list" : [
+      {
+        "pagePath" : "pages/tabbar/index",
+        "iconPath" : "static/home.png",
+        "selectedIconPath" : "static/home-active.png",
+        "text" : "首页"
+      },
+      {
+        "pagePath" : "pages/tabbar/my",
+        "iconPath" : "static/my.png",
+        "selectedIconPath" : "static/my-active.png",
+        "text" : "我的"
+      }
+    ]
+  }
+}
