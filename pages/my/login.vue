@@ -91,7 +91,7 @@
             this.btnText = '登录认证';
           }
         }).catch(err =>{
-          console.info(err);
+          this.msg = '连接服务器失败,请检查网络!';
           this.btnText = '登录认证';
         });
       },
