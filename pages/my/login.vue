@@ -63,7 +63,7 @@
         }
         this.msg = '';
         this.btnText = '正在登录……';
-        this.$api.userLogin(this.baseApi + 'login',{username:this.formData.username,password:this.formData.password,type:1}).then(result =>{
+        this.$api.userLogin('login',{username:this.formData.username,password:this.formData.password,type:1}).then(result =>{
           const {code,msg,data} = result;
           if(code === 200){
             this.btnText = '登录成功';

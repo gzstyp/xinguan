@@ -3,7 +3,6 @@ import App from './App';
 // vuex
 import store from './store/index.js';
 import exports from './resources/api/exports.js';
-Vue.prototype.baseApi = 'http://192.168.3.108:901/';
 Vue.prototype.$api = exports;
 Vue.config.productionTip = false;
 App.mpType = 'app';
