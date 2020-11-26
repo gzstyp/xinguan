@@ -10,12 +10,12 @@ Vue.prototype.$db = release;
 
 Vue.config.productionTip = false;
 App.mpType = 'app';
-// 检查是否已登录，参数 backpage : 登录后返回的页面; backtype : 打开页面的类型[1 : redirectTo 2 : switchTab];
+// 检查是否已登录，参数 backpage : 登录后返回的页面; backtype : 打开页面的类型[1 : redirectTo 2 : switchTab];parentPage上一级页面;parentType是返回类型;
 // 用法 const check = this.checkLogin('/pages/tabbar/follow/follow',2);if(!check)return; uni.redirectTo({url:pageOptions.backpage});uni.switchTab({url:pageOptions.backpage});
-Vue.prototype.checkLogin = function(backpage, backtype){
-	var userInfo  = uni.getStorageSync('USERINFO');
-	if(userInfo === null || userInfo === ''){
-		uni.redirectTo({url:'/pages/my/login?backpage='+backpage+'&backtype='+backtype});
+Vue.prototype.checkLogin = function(backpage,backtype,parentPage,parentType){
+	var userInfo = uni.getStorageSync('USERINFO');
+	if(userInfo == null || userInfo == ''){
+		uni.redirectTo({url:'/pages/my/login?backpage='+backpage+'&backtype='+backtype+'&parentPage='+parentPage+'&parentType='+parentType});
 		return false;
 	}
 	return userInfo;

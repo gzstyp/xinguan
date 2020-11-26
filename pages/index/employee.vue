@@ -99,8 +99,8 @@
 		data() {
 			return {}
 		},
-    onLoad() {
-      const check = this.checkLogin('/pages/index/employee',1);
+    beforeCreate() {
+      const check = this.checkLogin('/pages/index/employee',1,'/pages/tabbar/index',2);
       if(!check)return;
     },
 		methods: {
