@@ -1,8 +1,65 @@
-//table表名;返回的fields,*也可以但字段会多一个list;wheres是where条件查询KV对象,当为{}时是返回全部数据;
+/*数据库名称*/
+const dataName = 'fwtai';
+/*数据库地址，uniapp推荐以下划线为开头,操作数据时,若是字符串的话,需要包装 "'dwz.cloud'" 或添加转义符 '\'dwz.cloud\'',否则报错 "code": -1404*/
+const dataPath = '_doc/fwtai.db';
+//创建数据库或者打开,this.$db.openSqlite().then(data =>{}).catch(err =>{});
+export const openSqlite = () =>{
+  return new Promise((resolve,reject) =>{
+    plus.sqlite.openDatabase({
+      name:dataName,
+      path:dataPath,
+      success(data){
+        resolve({code : 200,msg : '操作成功'});
+      },
+      fail(err){
+        reject({code : 199,msg : err});
+      }
+    });
+  });
+};
+//关闭数据库this.$db.closeDB();
+export const closeDB = () =>{
+  return new Promise((resolve,reject) =>{
+    plus.sqlite.closeDatabase({
+      name:dataName,
+      success(e){
+        resolve(e);
+      },
+      fail(e){
+        reject(e);
+      }
+    });
+  });
+};
+//监听数据库是否开启 this.$db.closeDB();
+export const isOpen = () =>{
+  //数据库打开了就返回true,否则返回false
+  return plus.sqlite.isOpenDatabase({
+    name:dataName,
+    path:dataPath
+  });
+};
+/*创建表、添加、删除、更新操作*/
+function execute(sql){
+  openSqlite();
+  return new Promise((resolve,reject) =>{
+    plus.sqlite.executeSql({
+      name:dataName,
+      sql:sql,
+      success(result){
+        resolve({code : 200,msg : '操作成功'});
+      },
+      fail(err){
+        reject({code : 199,msg : err});
+      }
+    });
+  });
+}
+//table表名;返回的fields,*也可以;wheres是where条件查询KV对象,当为{}时是返回全部数据;
 function queryData(table,fields,wheres){
   return queryPageData(table,fields,wheres);
 }
-//带分页,table表名;返回的fields,*也可以但字段会多一个list;wheres是where条件查询KV对象,当为{}时是返回全部数据;current是当前页,pageSize每页大小;
+//带分页,table表名;返回的fields,*也可以;wheres是where条件查询KV对象,当为{}时是返回全部数据;current是当前页,pageSize每页大小;
 function queryPageData(table,fields,wheres,current,pageSize){
   let sql = '';
   if(fields == '*'){
@@ -19,9 +76,9 @@ function queryPageData(table,fields,wheres,current,pageSize){
     let where = '';
     for(let key in wheres){
       var value = wheres[key];
-      if(typeof(value)=='string'){
-        value = '\'' +value+ '\'';
-      }
+      /* if(typeof(value)=='string'){
+        value = '\'' +value+ '\'';//处理字符串
+      } */
       where += key + ' = '+ value + ' and ';
     }
     if(where.length > 0){
@@ -67,18 +124,21 @@ function queryLikePageData(table,fields,wheres,current,pageSize){
   }
   return sql;
 }
-/*数据库名称*/
-const dataName = 'fwtai';
-/*数据库地址，uniapp推荐以下划线为开头*/
-const dataPath = '_doc/fwtai.db';
-//创建数据库或者打开,this.$db.openSqlite().then(data =>{}).catch(err =>{});
-export const openSqlite = () =>{
+//返回数组,this.$db.queryList().then(data =>{}).catch(err =>{});
+export const queryList = (params) =>{
+  openSqlite();
+  var fields = ['id','name','gender'];
+  const sql = queryData('userInfo',fields,params);
   return new Promise((resolve,reject) =>{
-    plus.sqlite.openDatabase({
+    plus.sqlite.selectSql({
       name:dataName,
-      path:dataPath,
+      sql:sql,
       success(data){
-        resolve({code : 200,msg : '操作成功'});
+        if(data.length === 0){
+          resolve({code : 201,msg : '暂无数据'});
+        }else{
+          resolve({code : 200,data : data,msg : '操作成功'});
+        }
       },
       fail(err){
         reject({code : 199,msg : err});
@@ -88,20 +148,8 @@ export const openSqlite = () =>{
 };
 //创建表,this.$db.createTable().then(data =>{}).catch(err =>{});
 export const createTable = () =>{
-	return new Promise((resolve,reject) =>{
-	//创建表格在executeSql方法里写
-		plus.sqlite.executeSql({
-			name:dataName,
-			//表格创建或者打开，后面为表格结构
-			sql:'create table if not exists userInfo("list" INTEGER PRIMARY KEY AUTOINCREMENT,"id" TEXT,"name" TEXT,"gender" TEXT,"avatar" TEXT)',
-			success(data){
-				resolve({code : 200,msg : '操作成功'});
-			},
-			fail(err){
-				reject({code : 199,msg : err});
-			}
-		});
-	});
+  const sql = 'create table if not exists userInfo("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"name" TEXT,"gender" TEXT,"avatar" TEXT)';
+  return execute(sql);
 };
 //this.$db.add().then(data =>{}).catch(err =>{});
 export const add = (obj) =>{
@@ -114,18 +162,8 @@ export const add = (obj) =>{
       var name = obj.name || null; //名称
       var gender = obj.gender || null; //性别
       var avatar = obj.avatar || null; //头像
-      return new Promise((resolve,reject) =>{
-        plus.sqlite.executeSql({
-          name:dataName,
-          sql:'insert into userInfo(id,name,gender,avatar) values("'+id+'","'+name+'","'+gender+'","'+avatar+'")',
-          success(data){
-            resolve({code : 200,msg : '操作成功'});
-          },
-          fail(err){
-            reject({code : 199,msg : err});
-          }
-        });
-      });
+      const sql = 'insert into userInfo(name,gender,avatar) values("'+name+'","'+gender+'","'+avatar+'")';
+      return execute(sql);
     }else{
       return new Promise((resolve,reject) =>{reject({code:199,msg:'添加失败'})});
     }
@@ -133,77 +171,13 @@ export const add = (obj) =>{
     return new Promise((resolve,reject) =>{reject({code:199,msg:'参数有误'})});
   }
 };
-//返回数组,this.$db.query().then(data =>{}).catch(err =>{});
-export const query = (params) =>{
-  var fields = ['id','name','gender'];
-  const sql = queryData('userInfo',fields,params);
-	return new Promise((resolve,reject) =>{
-		plus.sqlite.selectSql({
-			name:dataName,
-			sql:sql,
-			success(data){
-        if(data.length === 0){
-          resolve({code : 201,msg : '暂无数据'});
-        }else{
-          resolve({code : 200,data : data,msg : '操作成功'});
-        }
-			},
-			fail(err){
-				reject({code : 199,msg : err});
-			}
-		});
-	});
+//this.$db.edit(id,name).then(data =>{}).catch(err =>{});
+export const edit = (id,name) =>{
+  let sql = 'update userInfo set name = '+ name +' where id ='+id;
+  return execute(sql);
 };
-export const deleteInformationType = (table) =>{
-  var sql = 'delete from '+table+' where id=1';
-  return new Promise((resolve,reject) =>{
-  	plus.sqlite.executeSql({
-  		name:dataName,
-  		sql:sql,
-  		success(e){
-  			resolve(e);
-  		},
-  		fail(e){
-  			reject(e);
-  		}
-  	});
-  });
-};
-export const edit = (name) =>{
-  openSqlite();
-  let sql = 'update userInfo set name = ' + name +' where id = 1';
-	return new Promise((resolve,reject) =>{
-		plus.sqlite.executeSql({
-			name:dataName,
-			sql:sql,
-			success(data){
-        resolve({code : 200,msg : '操作成功'});
-			},
-			fail(err){
-				reject({code : 199,msg : err});
-			}
-		});
-	});
-};
-//关闭数据库
-export const closeSQL = () =>{
-	return new Promise((resolve,reject) =>{
-		plus.sqlite.closeDatabase({
-			name:dataName,
-			success(e){
-				resolve(e);
-			},
-			fail(e){
-				reject(e);
-			}
-		});
-	});
-};
-//监听数据库是否开启
-export const isOpen = () =>{
-	//数据库打开了就返回true,否则返回false
-	return plus.sqlite.isOpenDatabase({
-    name:dataName,
-    path:dataPath
-  });
+//this.$db.del(id).then(data =>{}).catch(err =>{});
+export const del = (id) =>{
+  var sql = 'delete from userInfo where id='+id;
+  return execute(sql);
 };
