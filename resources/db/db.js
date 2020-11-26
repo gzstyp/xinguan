@@ -2,36 +2,36 @@
 const dataName = 'fwtai';
 /*数据库地址，uniapp推荐以下划线为开头,操作数据时,若是字符串的话,需要包装 "'dwz.cloud'" 或添加转义符 '\'dwz.cloud\'',否则报错 "code": -1404*/
 const dataPath = '_doc/fwtai.db';
-//创建数据库或者打开,this.$db.openSqlite().then(data =>{}).catch(err =>{});
-export const openSqlite = () =>{
+//数据库存在则打开，不存在则创建
+export const connectDB = () =>{
   return new Promise((resolve,reject) =>{
     plus.sqlite.openDatabase({
       name:dataName,
       path:dataPath,
       success(data){
-        resolve({code : 200,msg : '操作成功'});
+        resolve({code:200,msg:'操作成功'});
       },
       fail(err){
-        reject({code : 199,msg : err});
+        reject({code:204,msg:err});
       }
     });
   });
 };
-//关闭数据库this.$db.closeDB();
-export const closeDB = () =>{
+//关闭数据库;完成数据库操作后,必须关闭数据库,否则可能会导致系统资源无法释放;
+function closeDB(){
   return new Promise((resolve,reject) =>{
     plus.sqlite.closeDatabase({
       name:dataName,
-      success(e){
-        resolve(e);
+      success(result){
+        resolve(result);
       },
-      fail(e){
-        reject(e);
+      fail(err){
+        reject(err);
       }
     });
   });
-};
-//监听数据库是否开启 this.$db.closeDB();
+}
+//监听数据库是否已经打开;是返回true,否则false;this.$db.isOpen();
 export const isOpen = () =>{
   //数据库打开了就返回true,否则返回false
   return plus.sqlite.isOpenDatabase({
@@ -39,20 +39,56 @@ export const isOpen = () =>{
     path:dataPath
   });
 };
+function selectData(sql){
+  switchDB(1);
+  return new Promise((resolve,reject) =>{
+    plus.sqlite.selectSql({
+      name:dataName,
+      sql:sql,//参数为字符串时,表示执行单条SQL语句;参数为字符串数组时表示执行多条SQL语句;
+      success(data){
+        if(data.length === 0){
+          resolve({code:201,msg:'暂无数据'});
+        }else{
+          resolve({code:200,data:data,msg:'操作成功'});
+        }
+      },
+      fail(err){
+        reject({code:204,msg:err});
+      }
+    });
+    switchDB(0);
+  });
+}
+/*开启或关闭数据库;开启或关闭类型:type=1打开;0关闭;*/
+function switchDB(type){
+  if(type === 1){
+    const open = isOpen();
+    if(!open){
+      connectDB();
+    }
+  }
+  if(type === 0){
+    const open = isOpen();
+    if(open){
+      closeDB();
+    }
+  }
+}
 /*创建表、添加、删除、更新操作*/
 function execute(sql){
-  openSqlite();
+  switchDB(1);
   return new Promise((resolve,reject) =>{
     plus.sqlite.executeSql({
       name:dataName,
       sql:sql,
       success(result){
-        resolve({code : 200,msg : '操作成功'});
+        resolve({code:200,msg:'操作成功'});
       },
       fail(err){
-        reject({code : 199,msg : err});
+        reject({code:204,msg:err});
       }
     });
+    switchDB(0);
   });
 }
 //table表名;返回的fields,*也可以;wheres是where条件查询KV对象,当为{}时是返回全部数据;
@@ -126,25 +162,9 @@ function queryLikePageData(table,fields,wheres,current,pageSize){
 }
 //返回数组,this.$db.queryList().then(data =>{}).catch(err =>{});
 export const queryList = (params) =>{
-  openSqlite();
   var fields = ['id','name','gender'];
   const sql = queryData('userInfo',fields,params);
-  return new Promise((resolve,reject) =>{
-    plus.sqlite.selectSql({
-      name:dataName,
-      sql:sql,
-      success(data){
-        if(data.length === 0){
-          resolve({code : 201,msg : '暂无数据'});
-        }else{
-          resolve({code : 200,data : data,msg : '操作成功'});
-        }
-      },
-      fail(err){
-        reject({code : 199,msg : err});
-      }
-    });
-  });
+  return selectData(sql);
 };
 //创建表,this.$db.createTable().then(data =>{}).catch(err =>{});
 export const createTable = () =>{
