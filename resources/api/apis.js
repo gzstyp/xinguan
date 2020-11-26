@@ -10,5 +10,5 @@ export const userLogin = (url,params) =>{
 };
 //示例代码
 export const edit = (url,params) =>{
-	return ajaxReq(url,params,"POST");
+	return ajaxReq(url,params);//return ajaxReq(url,params,"GET");
 };

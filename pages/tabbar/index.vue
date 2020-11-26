@@ -6,6 +6,10 @@
         <view class="container-item" @click="manage">经营场所录入</view>
         <view class="container-item" @click="environment">环境监测录入</view>
         <view class="container-item" @click="employee">从业人员录入</view>
+        <view class="container-item" @click="openSqlite">openSqlite</view>
+        <view class="container-item" @click="createTable">createTable</view>
+        <view class="container-item" @click="add">add</view>
+        <view class="container-item" @click="query">query</view>
       </view>
     </view>
 	</view>
@@ -31,6 +35,44 @@
       /*从业人员监测*/
       employee(){
         this.navigateTo('/pages/index/employee');
+      },
+      openSqlite(){
+        this.$db.openSqlite().then(data =>{
+          console.info(data);
+        }).catch(err =>{
+        console.info(err);
+        });
+      },
+      createTable(){
+        this.$db.createTable().then(data =>{
+          console.info(data);
+        }).catch(err =>{
+          console.info(err);
+        });
+      },
+      add(){
+        const params = {
+          id : 6,
+          name : '田卓智',
+          gender : 1,//1男2女3未知
+          avatar : 'http://www.yinlz.com/images/img11.png'
+        };
+        this.$db.add(params).then(data =>{
+          console.info(data);
+        }).catch(err =>{
+          console.info(err);
+        });
+      },
+      query(){
+        const params = {
+
+          gender : 1
+        };
+        this.$db.query({}).then(data =>{
+          console.info(data);
+        }).catch(err =>{
+          console.info(err);
+        });
       }
 		}
 	}

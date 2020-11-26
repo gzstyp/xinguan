@@ -4,6 +4,10 @@ import App from './App';
 import store from './store/index.js';
 import exports from './resources/api/exports.js';
 Vue.prototype.$api = exports;
+
+import release from './resources/db/release.js';
+Vue.prototype.$db = release;
+
 Vue.config.productionTip = false;
 App.mpType = 'app';
 // 检查是否已登录，参数 backpage : 登录后返回的页面; backtype : 打开页面的类型[1 : redirectTo 2 : switchTab];
