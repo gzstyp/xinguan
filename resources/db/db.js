@@ -67,12 +67,16 @@ function queryLikePageData(table,fields,wheres,current,pageSize){
   }
   return sql;
 }
+/*数据库名称*/
+const dataName = 'fwtai';
+/*数据库地址，uniapp推荐以下划线为开头*/
+const dataPath = '_doc/fwtai.db';
 //创建数据库或者打开,this.$db.openSqlite().then(data =>{}).catch(err =>{});
 export const openSqlite = () =>{
   return new Promise((resolve,reject) =>{
     plus.sqlite.openDatabase({
-      name:'pop',//数据库名称
-      path:'_doc/pop.db',//数据库地址，uniapp推荐以下划线为开头
+      name:dataName,
+      path:dataPath,
       success(data){
         resolve({code : 200,msg : '操作成功'});
       },
@@ -87,7 +91,7 @@ export const createTable = () =>{
 	return new Promise((resolve,reject) =>{
 	//创建表格在executeSql方法里写
 		plus.sqlite.executeSql({
-			name:'pop',
+			name:dataName,
 			//表格创建或者打开，后面为表格结构
 			sql:'create table if not exists userInfo("list" INTEGER PRIMARY KEY AUTOINCREMENT,"id" TEXT,"name" TEXT,"gender" TEXT,"avatar" TEXT)',
 			success(data){
@@ -112,7 +116,7 @@ export const add = (obj) =>{
       var avatar = obj.avatar || null; //头像
       return new Promise((resolve,reject) =>{
         plus.sqlite.executeSql({
-          name:'pop',
+          name:dataName,
           sql:'insert into userInfo(id,name,gender,avatar) values("'+id+'","'+name+'","'+gender+'","'+avatar+'")',
           success(data){
             resolve({code : 200,msg : '操作成功'});
@@ -135,7 +139,7 @@ export const query = (params) =>{
   const sql = queryData('userInfo',fields,params);
 	return new Promise((resolve,reject) =>{
 		plus.sqlite.selectSql({
-			name:'pop',
+			name:dataName,
 			sql:sql,
 			success(data){
         if(data.length === 0){
@@ -154,7 +158,7 @@ export const deleteInformationType = (table) =>{
   var sql = 'delete from '+table+' where id=1';
   return new Promise((resolve,reject) =>{
   	plus.sqlite.executeSql({
-  		name:'pop',
+  		name:dataName,
   		sql:sql,
   		success(e){
   			resolve(e);
@@ -170,7 +174,7 @@ export const edit = (name) =>{
   let sql = 'update userInfo set name = ' + name +' where id = 1';
 	return new Promise((resolve,reject) =>{
 		plus.sqlite.executeSql({
-			name:'pop',
+			name:dataName,
 			sql:sql,
 			success(data){
         resolve({code : 200,msg : '操作成功'});
@@ -185,7 +189,7 @@ export const edit = (name) =>{
 export const closeSQL = () =>{
 	return new Promise((resolve,reject) =>{
 		plus.sqlite.closeDatabase({
-			name:'pop',
+			name:dataName,
 			success(e){
 				resolve(e);
 			},
@@ -199,7 +203,7 @@ export const closeSQL = () =>{
 export const isOpen = () =>{
 	//数据库打开了就返回true,否则返回false
 	return plus.sqlite.isOpenDatabase({
-    name:'pop',
-    path:'_doc/pop.db'
+    name:dataName,
+    path:dataPath
   });
 };
