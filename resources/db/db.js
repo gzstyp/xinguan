@@ -160,33 +160,22 @@ function queryLikePageData(table,fields,wheres,current,pageSize){
   }
   return sql;
 }
+//在系统初始化时创建表,this.$db.createTable().then(data =>{}).catch(err =>{});
+export const createTable = () =>{
+  const sql = 'create table if not exists userInfo("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"name" TEXT,"gender" TEXT,"avatar" TEXT)';
+  return execute(sql);
+};
 //返回数组,this.$db.queryList().then(data =>{}).catch(err =>{});
 export const queryList = (params) =>{
   var fields = ['id','name','gender'];
   const sql = queryData('userInfo',fields,params);
   return selectData(sql);
 };
-//创建表,this.$db.createTable().then(data =>{}).catch(err =>{});
-export const createTable = () =>{
-  const sql = 'create table if not exists userInfo("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"name" TEXT,"gender" TEXT,"avatar" TEXT)';
-  return execute(sql);
-};
-//this.$db.add().then(data =>{}).catch(err =>{});
+//this.$db.add({}).then(data =>{}).catch(err =>{});
 export const add = (obj) =>{
-	if(obj !== undefined){
-    //判断传的参是否有值
-    var b = (JSON.stringify(obj) == "{}");
-    if(!b){
-      //obj传来的参数对象
-      var id = obj.id || null; //id
-      var name = obj.name || null; //名称
-      var gender = obj.gender || null; //性别
-      var avatar = obj.avatar || null; //头像
-      const sql = 'insert into userInfo(name,gender,avatar) values("'+name+'","'+gender+'","'+avatar+'")';
-      return execute(sql);
-    }else{
-      return new Promise((resolve,reject) =>{reject({code:199,msg:'添加失败'})});
-    }
+  if(obj !== undefined){
+    const sql = 'insert into userInfo(name,gender,avatar) values("'+obj.name+'","'+obj.gender+'","'+obj.avatar+'")';
+    return execute(sql);
   }else{
     return new Promise((resolve,reject) =>{reject({code:199,msg:'参数有误'})});
   }
