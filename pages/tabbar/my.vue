@@ -74,8 +74,6 @@
         this.loginTips = '切换账号';
       });
     },
-    onLoad() {
-    },
     methods : {
       showInfo(){
         if(this.userinfo.username){
