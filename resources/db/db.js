@@ -59,21 +59,6 @@ function selectData(sql){
     switchDB(0);
   });
 }
-/*开启或关闭数据库;开启或关闭类型:type=1打开;0关闭;*/
-function switchDB(type){
-  if(type === 1){
-    const open = isOpen();
-    if(!open){
-      connectDB();
-    }
-  }
-  if(type === 0){
-    const open = isOpen();
-    if(open){
-      closeDB();
-    }
-  }
-}
 /*创建表、添加、删除、更新操作*/
 function execute(sql){
   switchDB(1);
@@ -90,6 +75,21 @@ function execute(sql){
     });
     switchDB(0);
   });
+}
+/*开启或关闭数据库;开启或关闭类型:type=1打开;0关闭;*/
+function switchDB(type){
+  if(type === 1){
+    const open = isOpen();
+    if(!open){
+      connectDB();
+    }
+  }
+  if(type === 0){
+    const open = isOpen();
+    if(open){
+      closeDB();
+    }
+  }
 }
 //table表名;返回的fields,*也可以;wheres是where条件查询KV对象,当为{}时是返回全部数据;
 function queryData(table,fields,wheres){
@@ -149,7 +149,7 @@ function queryLikePageData(table,fields,wheres,current,pageSize){
     sql = 'select '+column+' from ' + table;
   }
   if(wheres){
-   sql += ' where ' + wheres;
+    sql += ' where ' + wheres;
   }
   if(current != undefined && pageSize != undefined){
     if(current <= 0){
