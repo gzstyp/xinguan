@@ -1,3 +1,72 @@
+//table表名;返回的fields,*也可以但字段会多一个list;wheres是where条件查询KV对象,当为{}时是返回全部数据;
+function queryData(table,fields,wheres){
+  return queryPageData(table,fields,wheres);
+}
+//带分页,table表名;返回的fields,*也可以但字段会多一个list;wheres是where条件查询KV对象,当为{}时是返回全部数据;current是当前页,pageSize每页大小;
+function queryPageData(table,fields,wheres,current,pageSize){
+  let sql = '';
+  if(fields == '*'){
+    sql = 'select * from ' + table;
+  }else{
+    let column = '';
+    fields.forEach(item =>{
+      column += item+',';
+    });
+    column = column.substr(0,column.length-1);
+    sql = 'select '+column+' from ' + table;
+  }
+  if(wheres){
+    let where = '';
+    for(let key in wheres){
+      var value = wheres[key];
+      if(typeof(value)=='string'){
+        value = '\'' +value+ '\'';
+      }
+      where += key + ' = '+ value + ' and ';
+    }
+    if(where.length > 0){
+      where = where.substr(0,where.length-4);
+      sql += ' where ' +where;
+    }
+  }
+  if(current != undefined && pageSize != undefined){
+    if(current <= 0){
+      current = 1;
+    }
+    let section = (current - 1) * pageSize;
+    sql += ' limit '+section+','+pageSize;
+  }
+  return sql;
+}
+//查询数据,table表名;fields返回字段;wheres查询条件,其格式:id=1 and name like '%田'
+function queryLikeData(table,fields,wheres){
+  return queryLikePageData(table,fields,wheres);
+}
+//查询数据;带分页功能,table表名;fields返回字段;wheres查询条件;current是当前页,pageSize每页大小;
+function queryLikePageData(table,fields,wheres,current,pageSize){
+  let sql = '';
+  if(fields == '*'){
+    sql = 'select * from ' + table;
+  }else{
+    let column = '';
+    fields.forEach(item =>{
+      column += item+',';
+    });
+    column = column.substr(0,column.length-1);
+    sql = 'select '+column+' from ' + table;
+  }
+  if(wheres){
+   sql += ' where ' + wheres;
+  }
+  if(current != undefined && pageSize != undefined){
+    if(current <= 0){
+      current = 1;
+    }
+    let section = (current - 1) * pageSize;
+    sql += ' limit '+section+','+pageSize;
+  }
+  return sql;
+}
 //创建数据库或者打开,this.$db.openSqlite().then(data =>{}).catch(err =>{});
 export const openSqlite = () =>{
   return new Promise((resolve,reject) =>{
@@ -60,43 +129,6 @@ export const add = (obj) =>{
     return new Promise((resolve,reject) =>{reject({code:199,msg:'参数有误'})});
   }
 };
-//table表名;返回的fields,*也可以但字段会多一个list;wheres是where条件查询KV对象,当为{}时是返回全部数据;
-function queryData(table,fields,wheres){
-  return queryPageData(table,fields,wheres);
-}
-//table表名;返回的fields,*也可以但字段会多一个list;wheres是where条件查询KV对象,当为{}时是返回全部数据;current是当前页,pageSize每页大小;
-function queryPageData(table,fields,wheres,current,pageSize){
-  let sql = '';
-  if(fields == '*'){
-    sql = 'select * from ' + table;
-  }else{
-    let column = '';
-    fields.forEach(item =>{
-      column += item+',';
-    });
-    column = column.substr(0,column.length-1);
-    sql = 'select '+column+' from ' + table;
-  }
-  if(wheres){
-    let where = '';
-    for(let key in wheres){
-      where += key + ' = \''+ wheres[key] + '\' and ';
-    }
-    if(where.length > 0){
-      where = where.substr(0,where.length-4);
-      sql += ' where ' +where;
-    }
-  }
-  if(current != undefined && pageSize != undefined){
-    if(current <= 0){
-      current = 1;
-    }
-    let section = (current - 1) * pageSize;
-    sql += ' limit '+section+','+pageSize;
-  }
-  return sql;
-}
-
 //返回数组,this.$db.query().then(data =>{}).catch(err =>{});
 export const query = (params) =>{
   var fields = ['id','name','gender'];
@@ -134,16 +166,17 @@ export const deleteInformationType = (table) =>{
   });
 };
 export const edit = (name) =>{
-  let sql = 'update userInfo set name = ' + name +'where id = 1';
+  openSqlite();
+  let sql = 'update userInfo set name = ' + name +' where id = 1';
 	return new Promise((resolve,reject) =>{
 		plus.sqlite.executeSql({
 			name:'pop',
 			sql:sql,
-			success(e){
-				resolve(e);
+			success(data){
+        resolve({code : 200,msg : '操作成功'});
 			},
-			fail(e){
-				reject(e);
+			fail(err){
+				reject({code : 199,msg : err});
 			}
 		});
 	});
