@@ -80,6 +80,11 @@
           this.person.username = this.userinfo.username;
           this.loginTips = '切换账号';
         }
+        const exist = uni.getStorageSync('USERINFO');//处理是否已退出注销
+        if(!exist){
+          this.person.username = '未登录';
+          this.loginTips = '账号登录';
+        }
       },
       login(){
         uni.navigateTo({

@@ -3,7 +3,7 @@
 		<titlebar title="首页"></titlebar>
     <view class="container">
       <view class="container-box">
-         <view class="container-item" @click="manage"><text>经营场所录入</text></view>
+        <view class="container-item" @click="manage"><text>经营场所录入</text></view>
         <view class="container-item" @click="environment"><text>环境监测录入</text></view>
         <view class="container-item" @click="employee"><text>从业人员录入</text></view>
       </view>

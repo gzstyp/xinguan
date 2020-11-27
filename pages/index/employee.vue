@@ -5,86 +5,86 @@
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">市(州)</view>
-          <input type="text" />
+          <input type="text" placeholder="请选择市(州)"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">县(区)</view>
-          <input type="text" />
+          <input type="text" placeholder="请选择县(区)"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">姓名</view>
-          <input type="text" />
+          <input type="text" placeholder="人员姓名"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">性别</view>
-          <input type="text" />
+          <input type="text" placeholder="人员性别"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">年龄</view>
-          <input type="text" />
+          <input type="text" placeholder="人员年龄"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">从业场所名称</view>
-          <input type="text" />
+          <input type="text" placeholder="从业场所名称"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">从业场所类型</view>
-          <input type="text" />
+          <input type="text" placeholder="选择场所类型"/>
         </view>
       </view>
       <!-- 若从业场所类型为冷库请选择类型 -->
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">冷库类型</view>
-          <input type="text" />
+          <input type="text" placeholder="选择冷库类型"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">工种</view>
-          <input type="text" />
+          <input type="text" placeholder="选择工种"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">冷链从业人员</view>
-          <input type="text" />
+          <input type="text" placeholder="冷链人员姓名"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">样本类型</view>
-          <input type="text" />
+          <input type="text" placeholder="选择样本类型"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">采样日期</view>
-          <input type="text" />
+          <input type="text" placeholder="选择采样日期"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">检测日期</view>
-          <input type="text" />
+          <input type="text" placeholder="选择检测日期"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">检测结果</view>
-          <input type="text" />
+          <input type="text" placeholder="选择结果"/>
         </view>
       </view>
     </view>
@@ -118,7 +118,7 @@
   .content-container{
     margin-bottom: 40px;/* 底部按钮的高度 */
     .content-list-box{
-      &:nth-of-type(n+2) {
+      &:nth-of-type(n+2) {//n是从0开始
         margin-top:2px;
       }
       display:flex;
@@ -136,7 +136,7 @@
           width: 150px;
         }
         input{
-          border-bottom:1px solid #c7c7c7;
+          //border-bottom:1px solid #c7c7c7;
           height: 30px;
           line-height: 30px;
         }

@@ -5,13 +5,13 @@
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">市(州)</view>
-          <input type="text" />
+          <input type="text" placeholder="请选择市(州)"/>
         </view>
       </view>
       <view class="content-list-box">
         <view class="content-list-item">
           <view class="item-label">县(区)</view>
-          <input type="text" />
+          <input type="text" placeholder="请选择县(区)"/>
         </view>
       </view>
       <view class="content-list-box">
@@ -94,7 +94,7 @@
   .content-container{
     margin-bottom: 40px;/* 底部按钮的高度 */
     .content-list-box{
-      &:nth-of-type(n+2) {
+      &:nth-of-type(n+2){//n是从0开始
         margin-top:2px;
       }
       display:flex;
@@ -112,7 +112,7 @@
           width: 150px;
         }
         input{
-          border-bottom:1px solid #c7c7c7;
+          //border-bottom:1px solid #c7c7c7;
           height: 30px;
           line-height: 30px;
         }

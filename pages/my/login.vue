@@ -31,10 +31,10 @@
 	export default {
 		data() {
 			return {
-        backType : 3,
+        backType : 3,//跳转页面方式[1 : redirectTo 2 : switchTab]
         backPage : '',
-        parentType : 3,//backPage的上一级页面路径
-        parentPage : '',//跳转页面方式[1 : redirectTo 2 : switchTab]
+        parentType : 3,//跳转页面方式[1 : redirectTo 2 : switchTab]
+        parentPage : '',//backPage的上一级页面路径
         msg : '',
         btnText : '登录认证',
         formData : {
@@ -126,32 +126,31 @@
 </script>
 
 <style lang="scss">
-  page{
+  page {
     width: 100% !important;
     height: 100% !important;
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     background-color: #fff;
   }
   .container {
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     display: flex;
-    width:100vw;
-
+    width: 100vw;
     .container-box {
       width: 100%;
       height: 100%;
-      .container-item{
+      .container-item {
         width: 70%;
         margin: 0px auto;
         border-radius: 5px;
         font-size: 16px;
-        &:nth-child(n+2){//索引从0开始
+        &:nth-child(n+2) { //索引从0开始
           margin-top: 8px;
         }
-        input{
+        input {
           border: 1px solid #d0d0d0;
           border-radius: 4px;
           height: 38px;
@@ -159,47 +158,47 @@
           padding: 0 4px;
           font-size: 14px;
         }
-        .item-btn{
+        .item-btn {
           width: 100%;
-          background-color:$mk-base-color;
-          height:40px;
-          line-height:40px;
-          border-radius:4px;
+          background-color: $mk-base-color;
+          height: 40px;
+          line-height: 40px;
+          border-radius: 4px;
           display: flex;
-          justify-content:center;
-          align-items:center;
-          font-size:16px;
+          justify-content: center;
+          align-items: center;
+          font-size: 16px;
           font-weight: bold;
         }
-        .item-btn-hover{
-          background-color:$mk-hover;
+        .item-btn-hover {
+          background-color: $mk-hover;
         }
-        .item-forget{
+        .item-forget {
           width: 100%;
-          height:38px;
-          line-height:38px;
-          display:flex;
-          justify-content:flex-end;
-          font-size:14px;
+          height: 38px;
+          line-height: 38px;
+          display: flex;
+          justify-content: flex-end;
+          font-size: 14px;
         }
-        .item-forget-hover{
-          color:$mk-base-color;
+        .item-forget-hover {
+          color: $mk-base-color;
         }
       }
     }
   }
-  .bottom-tips{
-  	   height:40px;
-  	   line-height: 40px;
-  	   width: 100%;
-  	   text-align: center;
-  	   color: $mk-warn;
-  	   display: flex;
-  	   justify-content: center;
-  	   position:fixed;
-  	   bottom:0px;
-       left: 0;
-       right: 0;
-  	   z-index: 10;
+  .bottom-tips {
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    text-align: center;
+    color: $mk-warn;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
   }
 </style>
