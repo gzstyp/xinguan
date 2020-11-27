@@ -148,7 +148,7 @@
         margin: 0px auto;
         border-radius: 5px;
         font-size: 16px;
-        &:nth-child(n+2){
+        &:nth-child(n+2){//索引从0开始
           margin-top: 8px;
         }
         input{

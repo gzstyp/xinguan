@@ -61,10 +61,10 @@
     },
     //注意:onLoad 是在页面有效,created在组件里有效
     onLoad() {
-        this.showInfo();
+        this.showInfo();//这个调用和下面的onShow()要一起使用,不能删除!!!
     },
     onShow(){
-      this.showInfo();
+      this.showInfo();//这个调用和上面的onLoad()要一起使用,不能删除!!!
     },
     //注意:onLoad 是在页面有效,created在组件里有效
     created() {

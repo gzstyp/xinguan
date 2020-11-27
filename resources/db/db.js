@@ -2,7 +2,7 @@
 const dataName = 'fwtai';
 /*数据库地址，uniapp推荐以下划线为开头,操作数据时,若是字符串的话,需要包装 "'dwz.cloud'" 或添加转义符 '\'dwz.cloud\'',否则报错 "code": -1404*/
 const dataPath = '_doc/fwtai.db';
-//数据库存在则打开，不存在则创建
+//数据库存在则打开，不存在则创建,this.$db.connectDB(); | connectDB()
 export const connectDB = () =>{
   return new Promise((resolve,reject) =>{
     plus.sqlite.openDatabase({
@@ -162,12 +162,12 @@ function queryLikePageData(table,fields,wheres,current,pageSize){
 }
 //在系统初始化时创建表,this.$db.createTable().then(data =>{}).catch(err =>{});
 export const createTable = () =>{
-  const sql = 'create table if not exists userInfo("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"name" TEXT,"gender" TEXT,"avatar" TEXT)';
+  const sql = 'create table if not exists userInfo("kid" INTEGER PRIMARY KEY AUTOINCREMENT,"name" TEXT,"gender" TEXT,"avatar" TEXT)';
   return execute(sql);
 };
 //返回数组,this.$db.queryList().then(data =>{}).catch(err =>{});
 export const queryList = (params) =>{
-  var fields = ['id','name','gender'];
+  var fields = ['kid','name','gender'];
   const sql = queryData('userInfo',fields,params);
   return selectData(sql);
 };
@@ -180,13 +180,13 @@ export const add = (obj) =>{
     return new Promise((resolve,reject) =>{reject({code:199,msg:'参数有误'})});
   }
 };
-//this.$db.edit(id,name).then(data =>{}).catch(err =>{});
+//this.$db.edit(1,"'黄腰'").then(data =>{}).catch(err =>{});
 export const edit = (id,name) =>{
-  let sql = 'update userInfo set name = '+ name +' where id ='+id;
+  let sql = 'update userInfo set name = '+ name +' where kid ='+id;
   return execute(sql);
 };
 //this.$db.del(id).then(data =>{}).catch(err =>{});
 export const del = (id) =>{
-  var sql = 'delete from userInfo where id='+id;
+  var sql = 'delete from userInfo where kid='+id;
   return execute(sql);
 };
