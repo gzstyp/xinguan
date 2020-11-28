@@ -130,7 +130,9 @@
   	   display: flex;
   	   justify-content: center;
   	   position:fixed;
-  	   bottom:0px;
+  	   bottom: 0;
+       left: 0;
+       right: 0;
   	   z-index: 10;
   }
   .botton-backtrack-hover{
