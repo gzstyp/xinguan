@@ -1,72 +1,100 @@
 <template>
 	<view>
 		<titlebar backIcon title="经营场所录入" @clickBack="clickBack"></titlebar>
-    <view class="content-container">
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">市(州)</view>
-          <input type="text" placeholder="请选择市(州)"/>
+    <view class="input-item-container">
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>区域市(州)</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="请选择市(州)"/>
+          </view>
         </view>
-      </view>
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">县(区)</view>
-          <input type="text" placeholder="请选择县(区)"/>
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>区域县(区)</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="请选择县(区)"/>
+          </view>
         </view>
-      </view>
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">场所类型</view>
-          <input type="text" />
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>场所名称</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="选择场所名称"/>
+          </view>
         </view>
-      </view>
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">名称</view>
-          <input type="text" />
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>场所类型</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="选择场所类型"/>
+          </view>
         </view>
-      </view>
-
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">联系人</view>
-          <input type="text" />
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>联系人</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="联系人姓名"/>
+          </view>
         </view>
-      </view>
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">联系电话</view>
-          <input type="text" />
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>联系电话</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="联系电话"/>
+          </view>
         </view>
-      </view>
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">地址</view>
-          <input type="text" />
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>场所地址</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="输入地址"/>
+          </view>
         </view>
-      </view>
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">是否有冷冻冷藏产品</view>
-          <input type="text" />
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>是否有冷冻冷藏产品</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="请选择"/>
+          </view>
         </view>
-      </view>
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">是否含有冷冻进口产品</view>
-          <input type="text" />
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>是否含有冷冻进口产品</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="请选择"/>
+          </view>
         </view>
-      </view>
-      <view class="content-list-box">
-        <view class="content-list-item">
-          <view class="item-label">是否含有高中风险地区产品</view>
-          <input type="text" />
+        <view class="input-item-box">
+          <view class="input-item-label">
+            <text>含有高中风险地区产品</text>
+          </view>
+          <view class="input-item-input">
+            <input type="text" placeholder="请选择"/>
+          </view>
         </view>
-      </view>
+        <!-- 保留防止被底部遮挡 -->
+        <view class="input-item-box last-blank">
+          <view class="input-item-label">
+          </view>
+          <view class="input-item-input">
+          </view>
+        </view>
     </view>
+
     <view class="botton-backtrack" hover-class="botton-backtrack-hover">
     	<text>提交</text>
     </view>
+
 	</view>
 </template>
 
@@ -75,14 +103,14 @@
 		data() {
 			return {}
 		},
-    beforeCreate(){
-      const check = this.checkLogin('/pages/index/manage',1,'/pages/tabbar/index',2);
-      if(!check)return;
-    },
+		beforeCreate(){
+		  /* const check = this.checkLogin('/pages/index/manage',1,'/pages/tabbar/index',2);
+		  if(!check)return; */
+		},
 		methods: {
-      clickBack(){
-        this.switchTab('/pages/tabbar/index');
-      }
+		  clickBack(){
+		    this.switchTab('/pages/tabbar/index');
+		  }
 		}
 	}
 </script>
@@ -91,51 +119,45 @@
   page{
     background-color: #f5f5f5;
   }
-  .content-container{
-    margin-bottom: 40px;/* 底部按钮的高度 */
-    .content-list-box{
+  .input-item-container{
+    .input-item-box{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 60px;
+      padding: 10px 0;
+      margin-right: 14px;
+      box-sizing: border-box;
+      background-color: #fff;
       &:nth-of-type(n+2){//n是从0开始
         margin-top:2px;
       }
-      display:flex;
-      justify-content:space-between;/*使子元素左右对齐，子元素两端对齐*/
-      padding:8px;
-      background-color: #fff;
-      color: #333;
-      font-size: 14px;
-      .content-list-item{
-        display: flex;
-        align-items: center;/* 让子元素垂直排列 */
-        /* 和左边的文字有点距离 */
-        .item-label{
-          margin-right:6px;
-          width: 150px;
-        }
+      .input-item-label{
+        width: 360px;
+        margin-left: 14px;
+        font-size: 22px;
+        height: 30px;
+        display: -webkit-box;
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .input-item-input{
+        width: 100%;
+        margin-right: 14px;
         input{
-          //border-bottom:1px solid #c7c7c7;
           height: 30px;
           line-height: 30px;
+          text-align: right;
+          padding: 0 4px;
         }
       }
     }
-  }
-  /* 按钮 */
-  .botton-backtrack{
-  	   height:40px;
-  	   line-height: 40px;
-  	   width: 100%;
-  	   text-align: center;
-  	   background: $mk-base-color;
-  	   color: #ffffff;
-  	   display: flex;
-  	   justify-content: center;
-  	   position:fixed;
-  	   bottom: 0;
-       left: 0;
-       right: 0;
-  	   z-index: 10;
-  }
-  .botton-backtrack-hover{
-       background: $mk-hover;
+    // 附加的样式,即在class 添加一个class ;必须有空格!!!
+    & .last-blank{
+      background-color: #f5f5f5;
+    }
   }
 </style>

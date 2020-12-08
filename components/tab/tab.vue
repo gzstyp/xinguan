@@ -8,7 +8,6 @@
 				</view>
 			</view>
 		</scroll-view>
-		<!-- 图标[设置],因为图标不能滚动,所以要单独view -->
 		<view class="tab-icons" @click="openLabel">
 			<uni-icons type="gear" size="26" color="#666"></uni-icons>
 		</view>

@@ -22,24 +22,31 @@
     <view class="my-content">
       <view class="my-content_list" @click="login">
         <view class="my-content-list-title">
-          <uni-icons class="icons" type="person" size="16" color="#666"></uni-icons>
+          <uni-icons class="icons" type="person" size="30" color="#666"></uni-icons>
           <text>{{loginTips}}</text>
         </view>
-        <uni-icons type="arrowright" size="16" color="#666"></uni-icons>
+        <uni-icons type="arrowright" size="30" color="#666"></uni-icons>
       </view>
       <view class="my-content_list" @click="myArticle">
         <view class="my-content-list-title">
-          <uni-icons class="icons" type="list" size="16" color="#666"></uni-icons>
+          <uni-icons class="icons" type="list" size="30" color="#666"></uni-icons>
           <text>我的登记</text>
         </view>
-        <uni-icons type="arrowright" size="16" color="#666"></uni-icons>
+        <uni-icons type="arrowright" size="30" color="#666"></uni-icons>
       </view>
       <view class="my-content_list" @click="help">
         <view class="my-content-list-title">
-          <uni-icons class="icons" type="help" size="16" color="#666"></uni-icons>
+          <uni-icons class="icons" type="help" size="30" color="#666"></uni-icons>
           <text>帮助中心</text>
         </view>
-        <uni-icons type="arrowright" size="16" color="#666"></uni-icons>
+        <uni-icons type="arrowright" size="30" color="#666"></uni-icons>
+      </view>
+      <view class="my-content_list" @click="other">
+        <view class="my-content-list-title">
+          <uni-icons class="icons" type="help" size="30" color="#666"></uni-icons>
+          <text>页面效果</text>
+        </view>
+        <uni-icons type="arrowright" size="30" color="#666"></uni-icons>
       </view>
     </view>
 	</view>
@@ -102,6 +109,9 @@
         uni.navigateTo({
           url:'/pages/my/help'
         });
+      },
+      other(){
+        this.navigateTo('/pages/my/other');
       }
     }
 	}
@@ -110,6 +120,7 @@
 <style lang="scss">
   page{
     background-color: #f5f5f5;
+    font-size: 22px;
   }
   .my-header{
     position: relative;
@@ -182,9 +193,14 @@
       background-color: #fff;
       color: #333;
       font-size: 14px;
+      height: 44px;
+      line-height: 44px;
       .my-content-list-title{
         display: flex;
         align-items: center;/* 垂直方向排列,即让内容垂直居中对齐 */
+        text{
+          font-size: 20px;
+        }
         /* 和左边的文字有点距离 */
         .icons{
           margin-right:6px;

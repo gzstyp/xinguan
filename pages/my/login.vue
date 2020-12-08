@@ -146,28 +146,28 @@
         width: 70%;
         margin: 0px auto;
         border-radius: 5px;
-        font-size: 16px;
+        font-size: 22px;
         &:nth-child(n+2) { //索引从0开始
           margin-top: 8px;
         }
         input {
           border: 1px solid #d0d0d0;
           border-radius: 4px;
-          height: 38px;
-          line-height: 38px;
+          height: 54px;
+          line-height: 54px;
           padding: 0 4px;
-          font-size: 14px;
+          font-size: 20px;
         }
         .item-btn {
           width: 100%;
           background-color: $mk-base-color;
-          height: 40px;
-          line-height: 40px;
+          height: 60px;
+          line-height: 60px;
           border-radius: 4px;
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 16px;
+          font-size: 18px;
           font-weight: bold;
         }
         .item-btn-hover {
@@ -179,7 +179,7 @@
           line-height: 38px;
           display: flex;
           justify-content: flex-end;
-          font-size: 14px;
+          font-size: 18px;
         }
         .item-forget-hover {
           color: $mk-base-color;
