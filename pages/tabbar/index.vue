@@ -3,13 +3,13 @@
 		<titlebar title="首页"></titlebar>
     <view class="container">
       <view class="container-box">
-        <view class="container-item" @click="manage">
+        <view class="container-item btn btn1" @click="manage">
           <text>经营场所录入</text>
         </view>
-        <view class="container-item" @click="environment">
+        <view class="container-item btn btn2" @click="environment">
           <text>环境监测录入</text>
         </view>
-        <view class="container-item" @click="employee">
+        <view class="container-item btn btn3" @click="employee">
           <text>从业人员录入</text>
         </view>
       </view>
@@ -80,6 +80,23 @@
       & :hover {
         color: #f07373;
       }
+    }
+  }
+
+  .btn{
+    background-size: 200%;
+    transition: 0.6s;
+    &.btn1{
+      background-image: linear-gradient(to left,#c4e538,#009432,#c4e538);
+    }
+    &.btn2{
+      background-image: linear-gradient(to left,#12cbc4,#0652dd,#12cbc4);
+    }
+    &.btn3{
+      background-image: linear-gradient(to left,#fda7df,#9980fa,#fda7df);
+    }
+    &:hover{
+      background-position: right;
     }
   }
 </style>
