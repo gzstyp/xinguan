@@ -86,6 +86,7 @@
   .btn{
     background-size: 200%;
     transition: 0.6s;
+    /*注意这个地方*/
     &.btn1{
       background-image: linear-gradient(to left,#c4e538,#009432,#c4e538);
     }
@@ -95,6 +96,7 @@
     &.btn3{
       background-image: linear-gradient(to left,#fda7df,#9980fa,#fda7df);
     }
+    /*注意这个地方*/
     &:hover{
       background-position: right;
     }
