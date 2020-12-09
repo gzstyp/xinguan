@@ -56,6 +56,7 @@
     .container-box {
       width: 100%;
       height: 100%;
+      margin-bottom: 50px;
       .container-item{
         width: 60%;
         margin: 0px auto;

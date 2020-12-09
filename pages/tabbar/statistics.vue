@@ -12,7 +12,7 @@
     </view>
     <view class="follow-list">
       <swiper class="follow-list-swiper" :current="activeIndex" @change="change">
-        <swiper-item>
+        <swiper-item class="swiper-item-container">
           <view class="swiper-box">
             <view class="swiper-box-item" v-for="item in listYingJian" :key="item.kid" @click="openDialog(item.name,item.kid)">
               <view class="box-item-title">
@@ -27,7 +27,7 @@
             </view>
           </view>
         </swiper-item>
-        <swiper-item>
+        <swiper-item class="swiper-item-container">
           <view class="swiper-box">
             <view class="swiper-box-item" v-for="item in listYuanJian" :key="item.kid" @click="openDialog(item.name,item.kid)">
               <view class="box-item-title">
@@ -42,7 +42,7 @@
             </view>
           </view>
         </swiper-item>
-        <swiper-item>
+        <swiper-item class="swiper-item-container">
           <view class="total-container">
 
             <view class="total-box" v-for="item in totalItems" :key="item.kid">
@@ -353,6 +353,10 @@
     }
     .follow-list{
       height: 100%;
+      .swiper-item-container{
+        overflow:scroll;
+        overflow-x:hidden;
+      }
       .follow-list-swiper{
         padding: 0 15px;
         height: 100%;
@@ -363,7 +367,7 @@
           display: flex;
           flex-wrap: wrap;
           justify-content: space-between;
-          height: 120px;
+          margin-bottom: 12px;
           .swiper-box-item{
             display: flex;
             flex-direction: column;
@@ -375,7 +379,7 @@
             height: 124px;
             width: 48.5%;
             font-size: 20px;
-            background-color: #f8f8f8;
+            background-color: #fff;
             box-shadow: 2px 10px 8px rgba(0, 0, 0, 0.2);
             margin-top:14px;
             .box-item-title{
@@ -404,11 +408,10 @@
       }
     }
   }
-
   .total-container{
     flex-direction: column;
     display: flex;
-    padding-top: 10px;
+    margin-top: -14px;
     .total-box{
       display: flex;
       justify-content: center;
@@ -449,7 +452,6 @@
       }
     }
   }
-
   .popup-wrap {
   		background-color: #fff;
   		.popup-header {
